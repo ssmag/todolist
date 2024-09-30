@@ -1,5 +1,6 @@
 package com.example.todoapp.presentation.data.local.room
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -8,15 +9,16 @@ import androidx.room.Update
 import com.example.todoapp.presentation.TodoModel
 import com.example.todoapp.presentation.data.local.IDataSource
 
+@Dao
 interface TodoDao: IDataSource<TodoModel> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     override fun create(item: TodoModel)
 
-    @Query("SELECT * FROM todo")
+    @Query("SELECT * FROM TodoModel")
     override fun read(): List<TodoModel>
 
-    @Query("SELECT * FROM todo WHERE id = :id")
+    @Query("SELECT * FROM TodoModel WHERE id = :id")
     override fun read(id: Long): TodoModel
 
     @Update
