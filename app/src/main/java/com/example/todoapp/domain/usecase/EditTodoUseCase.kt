@@ -4,11 +4,11 @@ import android.content.Context
 import com.example.todoapp.data.repository.TodoRepository
 import com.example.todoapp.domain.model.TodoModel
 
-class EditTodoUseCase(context: Context) {
+class EditTodoUseCase(context: Context): ISuspendUseCase<TodoModel, Unit, TodoModel> {
 
-    private val repository = TodoRepository(context)
+    override val repository = TodoRepository(context)
 
-    suspend fun execute(todo: TodoModel) {
-        repository.updateTodo(todo)
+    override suspend fun execute(p: TodoModel) {
+        repository.updateTodo(p)
     }
 }

@@ -1,0 +1,10 @@
+package com.example.todoapp.domain.usecase
+
+import com.example.todoapp.data.repository.IRepository
+
+interface ISuspendUseCase<in O, out U, T>: IUseCase<T> {
+
+    override val repository: IRepository<T>
+
+    suspend fun execute(p: O): U
+}

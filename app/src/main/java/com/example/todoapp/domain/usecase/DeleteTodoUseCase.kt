@@ -4,11 +4,11 @@ import android.content.Context
 import com.example.todoapp.data.repository.TodoRepository
 import com.example.todoapp.domain.model.TodoModel
 
-class DeleteTodoUseCase(context: Context) {
+class DeleteTodoUseCase(context: Context): ISuspendUseCase<TodoModel, Unit, TodoModel> {
 
-    private val repository = TodoRepository(context)
+    override val repository = TodoRepository(context)
 
-    suspend fun execute(todo: TodoModel) {
-        repository.deleteTodo(todo)
+    override suspend fun execute(p: TodoModel) {
+        repository.deleteTodo(p)
     }
 }

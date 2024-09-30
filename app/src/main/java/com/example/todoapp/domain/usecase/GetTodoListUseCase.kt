@@ -5,11 +5,11 @@ import com.example.todoapp.data.repository.TodoRepository
 import com.example.todoapp.domain.model.TodoModel
 import kotlinx.coroutines.flow.Flow
 
-class GetTodoListUseCase(context: Context) {
+class GetTodoListUseCase(context: Context): ISimpleUseCase<Unit, Flow<List<TodoModel>>, TodoModel> {
 
-    private val repository = TodoRepository(context)
+    override val repository = TodoRepository(context)
 
-    fun execute(): Flow<List<TodoModel>> {
-       return repository.getAllTodos()
+    override fun execute(p: Unit): Flow<List<TodoModel>> {
+        return repository.getAllTodos()
     }
 }
