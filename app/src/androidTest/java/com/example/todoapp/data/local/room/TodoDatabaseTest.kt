@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.todoapp.domain.model.TodoModel
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -34,7 +35,7 @@ class TodoDatabaseTest {
     }
 
     @Test
-    fun create() {
+    fun create() = runBlocking {
         val todo = TodoModel(
             id = 1,
             title = "Test Todo",
@@ -48,7 +49,7 @@ class TodoDatabaseTest {
     }
 
     @Test
-    fun read() {
+    fun read() = runBlocking {
         val todo = TodoModel(
             id = 1,
             title = "Test Todo",
@@ -61,7 +62,7 @@ class TodoDatabaseTest {
     }
 
     @Test
-    fun update() {
+    fun update() = runBlocking {
         val todo = TodoModel(
             id = 1,
             title = "Test Todo",
@@ -76,7 +77,7 @@ class TodoDatabaseTest {
     }
 
     @Test
-    fun delete() {
+    fun delete() = runBlocking {
         val todo = TodoModel(
             id = 1,
             title = "Test Todo",

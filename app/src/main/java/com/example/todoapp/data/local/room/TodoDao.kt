@@ -7,23 +7,23 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.todoapp.domain.model.TodoModel
-import com.example.todoapp.data.local.IDataSource
+import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface TodoDao: IDataSource<TodoModel> {
+interface TodoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    override fun create(item: TodoModel)
+    suspend fun create(item: TodoModel)
 
     @Query("SELECT * FROM TodoModel")
-    override fun read(): List<TodoModel>
+    suspend fun read(): List<TodoModel>
 
     @Query("SELECT * FROM TodoModel WHERE id = :id")
-    override fun read(id: Long): TodoModel
+    suspend fun read(id: Long): TodoModel
 
     @Update
-    override fun update(item: TodoModel)
+    suspend fun update(item: TodoModel)
 
     @Delete
-    override fun delete(item: TodoModel)
+    suspend fun delete(item: TodoModel)
 }

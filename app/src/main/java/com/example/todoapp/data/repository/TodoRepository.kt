@@ -12,7 +12,7 @@ class TodoRepository(
 ): IRepository<TodoModel> {
 
 
-    fun createTodo(todo: TodoModel) {
+    suspend fun createTodo(todo: TodoModel) {
         localDataSource.create(todo)
     }
 
@@ -24,11 +24,11 @@ class TodoRepository(
         return localDataSource.readFlow(id)
     }
 
-    fun updateTodo(todo: TodoModel) {
+    suspend fun updateTodo(todo: TodoModel) {
         localDataSource.update(todo)
     }
 
-    fun deleteTodo(todo: TodoModel) {
+    suspend fun deleteTodo(todo: TodoModel) {
         localDataSource.delete(todo)
     }
 }

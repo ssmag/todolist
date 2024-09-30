@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.todoapp.domain.model.TodoModel
 import com.example.todoapp.data.local.room.TodoDatabase
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class TodoLocalDataSource(context: Context): IDataSource<TodoModel> {
 
@@ -19,23 +21,31 @@ class TodoLocalDataSource(context: Context): IDataSource<TodoModel> {
         ).build()
     }
 
-    override fun create(item: TodoModel) {
+    override suspend fun create(item: TodoModel) {
         db.todoDao.create(item)
     }
 
-    override fun read(): List<TodoModel> {
+    override fun readFlow(): Flow<List<TodoModel>> {
+        return flow { emit(db.todoDao.read()) }
+    }
+
+    override suspend fun read(): List<TodoModel> {
         return db.todoDao.read()
     }
 
-    override fun read(id: Long): TodoModel {
+    override suspend fun read(id: Long): TodoModel {
         return db.todoDao.read(id)
     }
 
-    override fun update(item: TodoModel) {
+    override fun readFlow(id: Long): Flow<TodoModel> {
+        return flow { emit(db.todoDao.read(id)) }
+    }
+
+    override suspend fun update(item: TodoModel) {
         db.todoDao.update(item)
     }
 
-    override fun delete(item: TodoModel) {
+    override suspend fun delete(item: TodoModel) {
         db.todoDao.delete(item)
     }
 }

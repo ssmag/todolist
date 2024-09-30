@@ -5,18 +5,18 @@ import kotlinx.coroutines.flow.flow
 
 interface IDataSource<T> {
 
-    fun create(item: T)
+    suspend fun create(item: T)
 
-    fun read(): List<T>
+    suspend fun read(): List<T>
 
-    fun read(id: Long): T
+    suspend fun read(id: Long): T
 
     fun readFlow(id: Long): Flow<T> = flow { read(id) }
 
     fun readFlow(): Flow<List<T>> = flow { read() }
 
-    fun update(item: T)
+    suspend fun update(item: T)
 
-    fun delete(item: T)
+    suspend fun delete(item: T)
 
 }
