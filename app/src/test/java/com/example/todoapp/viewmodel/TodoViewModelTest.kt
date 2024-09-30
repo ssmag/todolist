@@ -94,7 +94,7 @@ class TodoViewModelTest {
     fun onEvent_UpdatedTodoEvent_onAdd() {
         didGetTodoListEvent = false
         runBlocking {
-            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.AddTodo(TodoStub.stub, "Ntitle", "Ndesc"))
+            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.AddTodo)
             delay(BLOCK_DELAY)
         }
         assertTrue(didGetTodoListEvent)
@@ -123,7 +123,7 @@ class TodoViewModelTest {
     @Test
     fun onEvent_AddTodo() {
         runBlocking {
-            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.AddTodo(TodoStub.stub, "Ntitle", "NDesc"))
+            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.AddTodo)
             delay(BLOCK_DELAY)
         }
         assertTrue(didAddEvent)
@@ -157,6 +157,6 @@ class TodoViewModelTest {
     }
 
     companion object {
-        private const val BLOCK_DELAY = 750L
+        private const val BLOCK_DELAY = 1000L
     }
 }

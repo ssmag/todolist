@@ -2,11 +2,15 @@ package com.example.todoapp.presentation.event
 
 import com.example.todoapp.domain.model.TodoModel
 
-sealed class TodoEvent(open val todo: TodoModel): UIEvent {
-    sealed class UpdatedTodoEvent(todo: TodoModel): TodoEvent(todo) {
-        class AddTodo(todo: TodoModel, val title: String, val desc: String) : TodoEvent(todo)
-        class DeleteTodo(todo: TodoModel) : TodoEvent(todo)
-        class EditTodo(todo: TodoModel, val title: String, val desc: String) : TodoEvent(todo)
+sealed class TodoEvent: UIEvent {
+    sealed class UpdatedTodoEvent : TodoEvent() {
+        object AddTodo : TodoEvent()
+        class DeleteTodo(val todo: TodoModel) : TodoEvent()
+        class EditTodo(val todo: TodoModel, val title: String, val desc: String) : TodoEvent()
     }
-    class OnTodoSelected(todo: TodoModel) : TodoEvent(todo)
+    class OnTodoSelected(val todo: TodoModel) : TodoEvent()
+    object OnTodoDismissed: TodoEvent()
+    class SetTitle(val title: String): TodoEvent()
+    class SetDesc(val desc: String): TodoEvent()
+    object OnNewTodo: TodoEvent()
 }
