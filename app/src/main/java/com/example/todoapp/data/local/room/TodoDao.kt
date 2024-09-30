@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.todoapp.presentation.TodoModel
+import com.example.todoapp.domain.model.TodoModel
 import com.example.todoapp.data.local.IDataSource
 
 @Dao

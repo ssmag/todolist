@@ -2,10 +2,10 @@ package com.example.todoapp.data.local
 
 import android.content.Context
 import androidx.room.Room
-import com.example.todoapp.presentation.TodoModel
+import com.example.todoapp.domain.model.TodoModel
 import com.example.todoapp.data.local.room.TodoDatabase
 
-class LocalDataSourceImpl(context: Context): IDataSource<TodoModel> {
+class TodoLocalDataSource(context: Context): IDataSource<TodoModel> {
 
     // Would use dependency injection, especially since we are passing context
     // but due to time constraints and avoidance of introducing more libraries than
