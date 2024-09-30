@@ -20,7 +20,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -57,15 +60,19 @@ fun TodoScreen(
         Column(
             modifier = Modifier
                 .padding(padding)
-                .fillMaxSize()
+                .fillMaxSize(),
         ) {
             Title(
                 modifier = Modifier.padding(padding)
             )
-            TodoList(
-                state = state,
-                onEvent = onEvent
-            )
+            if (state.todos.isNotEmpty()) {
+                TodoList(
+                    state = state,
+                    onEvent = onEvent
+                )
+            } else {
+                NoItemsPrompt()
+            }
         }
     }
 }
@@ -126,5 +133,27 @@ fun TodoList(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun NoItemsPrompt() {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        val textSize = 42.sp
+        Text(
+            text = "No items to show",
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.bodyLarge,
+            color = Color.Gray,
+            fontSize = textSize,
+            lineHeight = textSize,
+            modifier = Modifier
+                .padding(16.dp)
+        )
     }
 }
