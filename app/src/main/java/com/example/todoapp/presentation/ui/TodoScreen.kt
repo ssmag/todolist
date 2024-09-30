@@ -48,7 +48,7 @@ fun TodoScreen(
 
     ) { padding ->
         if (state.isTodoOpen) {
-            AddTodoDialog(
+            TodoDialog(
                 state = state,
                 onEvent = onEvent
             )

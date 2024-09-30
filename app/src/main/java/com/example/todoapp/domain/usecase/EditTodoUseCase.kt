@@ -14,7 +14,7 @@ class EditTodoUseCase(context: Context): ISuspendUseCase<Params, Unit, TodoModel
         repository.updateTodo(newTodo)
     }
 
-    class Params(
+    data class Params(
         val todo: TodoModel,
         val title: String,
         val description: String

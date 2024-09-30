@@ -114,7 +114,7 @@ class TodoViewModelTest {
     fun onEvent_UpdateTodoEvent_onEdit() {
         didGetTodoListEvent = false
         runBlocking {
-            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.EditTodo(TodoStub.stub, "Ntitle", "NDesc"))
+            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.EditTodo)
             delay(BLOCK_DELAY)
         }
         assertTrue(didGetTodoListEvent)
@@ -141,7 +141,7 @@ class TodoViewModelTest {
     @Test
     fun onEvent_EditTodo() {
         runBlocking {
-            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.EditTodo(TodoStub.stub, "NTitle", "Ndesc"))
+            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.EditTodo)
             delay(BLOCK_DELAY)
         }
         assertTrue(didEditEvent)

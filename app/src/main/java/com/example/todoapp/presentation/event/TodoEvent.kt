@@ -6,7 +6,7 @@ sealed class TodoEvent: UIEvent {
     sealed class UpdatedTodoEvent : TodoEvent() {
         object AddTodo : TodoEvent()
         class DeleteTodo(val todo: TodoModel) : TodoEvent()
-        class EditTodo(val todo: TodoModel, val title: String, val desc: String) : TodoEvent()
+        object EditTodo : TodoEvent()
     }
     class OnTodoSelected(val todo: TodoModel) : TodoEvent()
     object OnTodoDismissed: TodoEvent()

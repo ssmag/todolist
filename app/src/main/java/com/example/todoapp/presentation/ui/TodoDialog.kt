@@ -19,7 +19,7 @@ import com.example.todoapp.presentation.state.TodoListState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddTodoDialog(
+fun TodoDialog(
     state: TodoListState,
     onEvent: (TodoEvent) -> Unit,
 ) {
@@ -56,7 +56,13 @@ fun AddTodoDialog(
             contentAlignment = Alignment.CenterEnd
         ) {
             Button(onClick = {
-                onEvent(TodoEvent.UpdatedTodoEvent.AddTodo)
+                if (state.selectedTodo == null) {
+                    onEvent(TodoEvent.UpdatedTodoEvent.AddTodo)
+                } else {
+                    onEvent(
+                        TodoEvent.UpdatedTodoEvent.EditTodo
+                    )
+                }
             }) {
                 Text(text = "Save")
             }

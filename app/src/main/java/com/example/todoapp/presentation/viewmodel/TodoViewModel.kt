@@ -55,12 +55,17 @@ class TodoViewModel(
 
             is TodoEvent.UpdatedTodoEvent.EditTodo -> viewModelScope.launch(dispatcher) {
                 val params =
-                    EditTodoUseCase.Params(
-                        event.todo,
-                        event.title,
-                        event.desc
-                    )
-                _editTodoUseCase.execute(params)
+                    state.value.selectedTodo?.let {
+                        EditTodoUseCase.Params(
+                            it,
+                            state.value.title,
+                            state.value.desc
+                        )
+                    }
+                Log.d(TAG, "updated todo: $params")
+                if (params != null) {
+                    _editTodoUseCase.execute(params)
+                }
                 dismissDialog()
                 populateTodoList()
             }
