@@ -63,7 +63,7 @@ fun TodoScreen(
                 .fillMaxSize(),
         ) {
             Title(
-                modifier = Modifier.padding(padding)
+                modifier = Modifier.padding(padding),
             )
             if (state.todos.isNotEmpty()) {
                 TodoList(
@@ -83,6 +83,8 @@ fun Title(
 ) {
         Text(
             text = StringConstants.SCREEN_TITLE,
+            fontSize = 32.sp,
+            textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge,
             modifier = modifier
                 .fillMaxWidth()
