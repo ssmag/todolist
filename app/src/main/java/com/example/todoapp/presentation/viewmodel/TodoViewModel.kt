@@ -18,6 +18,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -26,12 +27,13 @@ class TodoViewModel(
     context: Context,
     private val _addTodoUseCase: ISuspendUseCase<TodoModel, Unit, TodoModel> = AddTodoUseCase(context),
     private val _deleteTodoUseCase: ISuspendUseCase<TodoModel, Unit, TodoModel> = DeleteTodoUseCase(context),
-    private val _editTodoUseCase: ISuspendUseCase<TodoModel, Unit, TodoModel> = EditTodoUseCase(context),
+    private val _editTodoUseCase: ISuspendUseCase<EditTodoUseCase.Params, Unit, TodoModel> = EditTodoUseCase(context),
     private val _getTodoListUseCase:  ISimpleUseCase<Unit, Flow<List<TodoModel>>, TodoModel> = GetTodoListUseCase(context),
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(TodoListState())
+    val state: StateFlow<TodoListState> = _state
 
     init {
         populateTodoList()
@@ -40,7 +42,11 @@ class TodoViewModel(
     fun onEvent(event: TodoEvent) {
         when (event) {
             is TodoEvent.UpdatedTodoEvent.AddTodo -> viewModelScope.launch(dispatcher) {
-                _addTodoUseCase.execute(event.todo)
+                val newTodo = TodoModel(
+                    title = event.title,
+                    desc = event.desc
+                )
+                _addTodoUseCase.execute(newTodo)
             }
 
             is TodoEvent.UpdatedTodoEvent.DeleteTodo -> viewModelScope.launch(dispatcher) {
@@ -48,13 +54,19 @@ class TodoViewModel(
             }
 
             is TodoEvent.UpdatedTodoEvent.EditTodo -> viewModelScope.launch(dispatcher) {
-                _editTodoUseCase.execute(event.todo)
-                _state.value = _state.value.copy(isTodoOpen = false)
+                val params =
+                    EditTodoUseCase.Params(
+                        event.todo,
+                        event.title,
+                        event.desc
+                    )
+                _editTodoUseCase.execute(params)
             }
             is TodoEvent.OnTodoSelected -> {
                 _state.value = _state.value.copy(isTodoOpen = true)
             }
             is TodoEvent.UpdatedTodoEvent -> {
+                _state.value = _state.value.copy(isTodoOpen = false)
                 populateTodoList()
             }
         }

@@ -5,6 +5,7 @@ import TodoStub
 import com.example.todoapp.data.local.IDataSource
 import com.example.todoapp.data.repository.IRepository
 import com.example.todoapp.domain.model.TodoModel
+import com.example.todoapp.domain.usecase.EditTodoUseCase
 import com.example.todoapp.domain.usecase.ISimpleUseCase
 import com.example.todoapp.domain.usecase.ISuspendUseCase
 import com.example.todoapp.presentation.event.TodoEvent
@@ -63,9 +64,9 @@ class TodoViewModelTest {
         }
 
     }
-    private val editTodoUseCase = object : ISuspendUseCase<TodoModel, Unit, TodoModel> {
+    private val editTodoUseCase = object : ISuspendUseCase<EditTodoUseCase.Params, Unit, TodoModel> {
         override val repository: IRepository<TodoModel> = mockRepository
-        override suspend fun execute(p: TodoModel) {
+        override suspend fun execute(p: EditTodoUseCase.Params) {
             didEditEvent = true
         }
 
@@ -93,7 +94,7 @@ class TodoViewModelTest {
     fun onEvent_UpdatedTodoEvent_onAdd() {
         didGetTodoListEvent = false
         runBlocking {
-            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.AddTodo(TodoStub.stub))
+            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.AddTodo(TodoStub.stub, "Ntitle", "Ndesc"))
             delay(BLOCK_DELAY)
         }
         assertTrue(didGetTodoListEvent)
@@ -113,7 +114,7 @@ class TodoViewModelTest {
     fun onEvent_UpdateTodoEvent_onEdit() {
         didGetTodoListEvent = false
         runBlocking {
-            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.EditTodo(TodoStub.stub))
+            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.EditTodo(TodoStub.stub, "Ntitle", "NDesc"))
             delay(BLOCK_DELAY)
         }
         assertTrue(didGetTodoListEvent)
@@ -122,7 +123,7 @@ class TodoViewModelTest {
     @Test
     fun onEvent_AddTodo() {
         runBlocking {
-            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.AddTodo(TodoStub.stub))
+            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.AddTodo(TodoStub.stub, "Ntitle", "NDesc"))
             delay(BLOCK_DELAY)
         }
         assertTrue(didAddEvent)
@@ -140,7 +141,7 @@ class TodoViewModelTest {
     @Test
     fun onEvent_EditTodo() {
         runBlocking {
-            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.EditTodo(TodoStub.stub))
+            mockViewModel.onEvent(TodoEvent.UpdatedTodoEvent.EditTodo(TodoStub.stub, "NTitle", "Ndesc"))
             delay(BLOCK_DELAY)
         }
         assertTrue(didEditEvent)
@@ -156,6 +157,6 @@ class TodoViewModelTest {
     }
 
     companion object {
-        private const val BLOCK_DELAY = 500L
+        private const val BLOCK_DELAY = 750L
     }
 }
