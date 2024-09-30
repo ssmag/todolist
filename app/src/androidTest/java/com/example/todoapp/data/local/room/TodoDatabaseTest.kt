@@ -5,8 +5,6 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.todoapp.presentation.TodoModel
-import com.example.todoapp.presentation.data.local.room.TodoDao
-import com.example.todoapp.presentation.data.local.room.TodoDatabase
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
 import org.junit.After
