@@ -36,7 +36,12 @@ fun TodoDialog(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = StringConstants.ADD_TODO)
+            val dialogTitle = if (state.selectedTodo == null) {
+                StringConstants.ADD_TODO
+            } else {
+                StringConstants.EDIT_TODO
+            }
+            Text(text = dialogTitle)
             TextField(
                 value = state.title,
                 onValueChange = {
