@@ -116,21 +116,25 @@ fun TodoList(
                 ) {
                     Text(
                         text = todo.title,
-                        fontSize = 20.sp
-                    )
-                    Text(
-                        text = todo.desc,
-                        fontSize = 15.sp,
+                        fontSize = 24.sp,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
+                    if (todo.desc.isNotEmpty()) {
+                        Text(
+                            text = todo.desc,
+                            fontSize = 11.sp,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
                 }
                 IconButton(onClick = {
                     onEvent(TodoEvent.UpdatedTodoEvent.DeleteTodo(todo))
                 }) {
                     Icon(
                         imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete contact"
+                        contentDescription = StringConstants.DELETE_DESC
                     )
                 }
             }
