@@ -65,7 +65,12 @@ class TodoViewModel(
                 populateTodoList()
             }
             is TodoEvent.OnTodoSelected -> {
-                _state.value = _state.value.copy(isTodoOpen = true)
+                _state.value = _state.value.copy(
+                    isTodoOpen = true,
+                    selectedTodo = event.todo,
+                    title = event.todo.title,
+                    desc = event.todo.desc
+                )
             }
             TodoEvent.OnNewTodo -> {
                 _state.value = _state.value.copy(isTodoOpen = true)
@@ -85,6 +90,7 @@ class TodoViewModel(
     private fun dismissDialog() {
         _state.value = _state.value.copy(
             isTodoOpen = false,
+            selectedTodo = null,
             title = "",
             desc = ""
         )

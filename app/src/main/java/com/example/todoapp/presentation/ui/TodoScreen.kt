@@ -1,5 +1,6 @@
 package com.example.todoapp.presentation.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -97,7 +98,12 @@ fun TodoList(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Column(
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+                            onEvent(TodoEvent.OnTodoSelected(todo))
+                        }
+                    ,
                 ) {
                     Text(
                         text = todo.title,
