@@ -50,6 +50,7 @@ class TodoViewModel(
 
             is TodoEvent.UpdatedTodoEvent.DeleteTodo -> viewModelScope.launch(dispatcher) {
                 _deleteTodoUseCase.execute(event.todo)
+                populateTodoList()
             }
 
             is TodoEvent.UpdatedTodoEvent.EditTodo -> viewModelScope.launch(dispatcher) {
