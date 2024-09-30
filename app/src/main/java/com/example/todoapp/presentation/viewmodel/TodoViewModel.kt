@@ -17,7 +17,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class TodoViewModel(
@@ -63,6 +65,6 @@ class TodoViewModel(
         _getTodoListUseCase.execute(Unit).flatMapLatest { todos ->
             _state.value = _state.value.copy(todos = todos)
             _state
-        }
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList<TodoModel>())
     }
 }
