@@ -1,4 +1,4 @@
-package com.example.todoapp
+package com.example.todoapp.data.local.room
 
 import android.content.Context
 import androidx.room.Room
@@ -15,7 +15,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class LocalDataSourceImplTest {
+class TodoDatabaseTest {
 
     private lateinit var db: TodoDatabase
     private lateinit var dao: TodoDao
