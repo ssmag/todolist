@@ -10,6 +10,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -28,18 +30,24 @@ fun TodoDialog(
             onEvent(TodoEvent.OnTodoDismissed)
         },
     ) {
+        val (isTitleValid, setIsTitleValid) = remember { mutableStateOf(true) }
+
         Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = StringConstants.ADD_TODO)
             TextField(
                 value = state.title,
                 onValueChange = {
                     onEvent(TodoEvent.SetTitle(it))
+                    setIsTitleValid(it.isEmpty().not())
                 },
                 placeholder = {
                     Text(text = StringConstants.TITLE_HINT)
-                }
+                },
+                isError = !isTitleValid,
+                maxLines = 2
             )
             TextField(
                 value = state.desc,
@@ -48,14 +56,17 @@ fun TodoDialog(
                 },
                 placeholder = {
                     Text(text = StringConstants.DESC_HINT)
-                }
+                },
+                maxLines = 7
             )
         }
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.CenterEnd
         ) {
-            Button(onClick = {
+            Button(
+                enabled = isTitleValid && state.title.isNotBlank(),
+                onClick = {
                 if (state.selectedTodo == null) {
                     onEvent(TodoEvent.UpdatedTodoEvent.AddTodo)
                 } else {
@@ -64,7 +75,7 @@ fun TodoDialog(
                     )
                 }
             }) {
-                Text(text = "Save")
+                Text(text = StringConstants.SAVE_TODO)
             }
         }
     }
