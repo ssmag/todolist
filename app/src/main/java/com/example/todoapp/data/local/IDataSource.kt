@@ -1,4 +1,4 @@
-package com.example.todoapp.presentation.data.local
+package com.example.todoapp.data.local
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

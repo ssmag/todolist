@@ -1,9 +1,9 @@
-package com.example.todoapp.presentation.data.local
+package com.example.todoapp.data.local
 
 import android.content.Context
 import androidx.room.Room
 import com.example.todoapp.presentation.TodoModel
-import com.example.todoapp.presentation.data.local.room.TodoDatabase
+import com.example.todoapp.data.local.room.TodoDatabase
 
 class LocalDataSourceImpl(context: Context): IDataSource<TodoModel> {
 

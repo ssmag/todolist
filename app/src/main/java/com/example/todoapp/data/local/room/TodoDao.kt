@@ -1,4 +1,4 @@
-package com.example.todoapp.presentation.data.local.room
+package com.example.todoapp.data.local.room
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.todoapp.presentation.TodoModel
-import com.example.todoapp.presentation.data.local.IDataSource
+import com.example.todoapp.data.local.IDataSource
 
 @Dao
 interface TodoDao: IDataSource<TodoModel> {
